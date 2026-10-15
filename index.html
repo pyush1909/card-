@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#fff0f5" />
+<meta name="description" content="A little love surprise, made just for Jaismeen ❤️" />
+<title>Meri Jaan 😘❤️</title>
+<style>
+  :root { --pink:#ff6f9f; --deep:#c92e65; --cream:#fff8fb; --ink:#682743; }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; min-height:100vh; overflow-x:hidden; color:var(--ink);
+    font-family: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(circle at top left,#ffe0eb 0,transparent 38%),
+                radial-gradient(circle at bottom right,#ffd2e2 0,transparent 40%),
+                linear-gradient(145deg,#fff8fb,#ffeaf2 55%,#fff4f8);
+  }
+  button { font:inherit; -webkit-tap-highlight-color:transparent; }
+  .wrap { width:min(720px,100%); margin:auto; padding:clamp(22px,6vw,52px) 18px 40px; position:relative; z-index:1; }
+  .topline { text-align:center; font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; color:#b24c75; }
+  h1 { text-align:center; font-size:clamp(2rem,8vw,3.6rem); line-height:1.05; margin:12px 0 10px; color:var(--deep); }
+  .sub { text-align:center; margin:0 auto 28px; max-width:430px; line-height:1.65; color:#95506c; }
+  .scene { display:grid; place-items:center; min-height:290px; margin:8px 0 20px; perspective:1000px; }
+  .envelope-button { border:0; background:transparent; cursor:pointer; padding:18px; width:min(330px,90vw); color:inherit; }
+  .envelope { position:relative; height:190px; border-radius:12px; background:#ff9fbd; box-shadow:0 18px 35px #b53d6730; transition:transform .4s ease; }
+  .envelope-button:active .envelope { transform:scale(.98); }
+  .envelope::before { content:""; position:absolute; inset:0; background:#ffb6cc; clip-path:polygon(0 0,50% 58%,100% 0); border-radius:12px 12px 0 0; transform-origin:top; transition:transform .8s ease; z-index:3; }
+  .envelope::after { content:""; position:absolute; inset:0; background:#ff83a9; clip-path:polygon(0 100%,0 0,50% 55%,100% 0,100% 100%); border-radius:0 0 12px 12px; z-index:2; }
+  .letter-peek { position:absolute; left:8%; width:84%; height:145px; top:16px; background:#fffafd; border-radius:8px; display:grid; place-items:center; font-size:2.2rem; transition:transform .9s ease; z-index:1; box-shadow:0 4px 10px #b53d6715; }
+  .seal { position:absolute; z-index:4; left:50%; top:57%; transform:translate(-50%,-50%); width:58px; height:58px; border-radius:50%; display:grid; place-items:center; background:#d83e70; color:white; font-size:1.6rem; box-shadow:0 5px 12px #9d214c45; transition:opacity .3s ease,transform .3s ease; }
+  .opened .envelope::before { transform:rotateX(180deg); z-index:0; }
+  .opened .letter-peek { transform:translateY(-72px); }
+  .opened .seal { opacity:0; transform:translate(-50%,-50%) scale(.4); }
+  .tap-hint { margin-top:5px; text-align:center; color:#b24c75; font-weight:700; animation:pulse 1.8s infinite; }
+  @keyframes pulse { 50% { opacity:.55; transform:translateY(-2px); } }
+  .letter { display:none; opacity:0; transform:translateY(20px); background:#fffdfd; border:1px solid #ffd2e1; border-radius:24px; padding:clamp(22px,5vw,38px); box-shadow:0 18px 50px #a52b5817; line-height:1.85; font-size:1rem; }
+  .letter.show { display:block; animation:letterIn .85s .15s forwards; }
+  @keyframes letterIn { to { opacity:1; transform:translateY(0); } }
+  .letter h2 { text-align:center; font-size:clamp(1.4rem,5vw,2rem); line-height:1.35; color:var(--deep); margin:0 0 22px; }
+  .letter p { margin:0 0 17px; white-space:pre-line; }
+  .highlight { text-align:center; color:#c92e65; font-weight:800; font-size:1.12rem; padding:12px 8px; }
+  .signature { text-align:center; color:#c92e65; font-weight:800; font-size:1.1rem; margin-top:25px; }
+  .actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:22px 0 8px; }
+  .pill { border:0; border-radius:999px; padding:13px 20px; background:var(--deep); color:white; font-weight:750; cursor:pointer; box-shadow:0 7px 16px #c92e6530; }
+  .pill.secondary { background:#fff; color:var(--deep); border:1px solid #ffc5d9; box-shadow:none; }
+  .pill:focus-visible,.envelope-button:focus-visible { outline:3px solid #7d2449; outline-offset:4px; }
+  .tiny { text-align:center; font-size:.82rem; color:#a96a83; margin-top:28px; }
+  .heart { position:fixed; bottom:-35px; pointer-events:none; z-index:0; animation:floatUp linear forwards; filter:drop-shadow(0 3px 5px #d447741a); }
+  @keyframes floatUp { to { transform:translateY(-115vh) rotate(28deg); opacity:0; } }
+  .surprise { display:none; text-align:center; background:#fff4f8; border-radius:18px; border:1px dashed #f3a1bc; padding:18px; margin-top:18px; animation:letterIn .5s forwards; }
+  .surprise.show { display:block; }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="topline">A little something from my heart</div>
+  <h1>Meri Jaan 😘❤️</h1>
+  <p class="sub">I made a tiny world of love, just for you, Jaismeen. 💗<br>Ready for your little surprise?</p>
+
+  <section class="scene" id="scene" aria-label="Interactive love letter envelope">
+    <button class="envelope-button" id="openBtn" aria-label="Open your love letter">
+      <div class="envelope" id="envelope">
+        <div class="letter-peek">💌</div>
+        <div class="seal">♥</div>
+      </div>
+      <div class="tap-hint" id="tapHint">Tap to open, meri jaan ✨</div>
+    </button>
+  </section>
+
+  <article class="letter" id="letter" aria-live="polite">
+    <h2>💌 For My Jaan, Jaismeen ❤️🧿</h2>
+    <p>Meri sohni ji Jaismeen, meri jaan, meri duniya, meri sab ton pyaari kudi 🥹❤️</p>
+    <p>Pata nahi main kiven tenu samjhava ki tu mere layi kinni special aa. Tu sirf meri girlfriend nahi aa, tu meri khushi aa, mera sukoon aa, meri smile di wajah aa te mere dil da sab ton pyaara hissa aa. Tere naal gall karke mera din changa ho janda, teri ik smile meri saari tension door kar dindi aa, te tera kol hona mainu duniya di sab ton sohni feeling dinda aa. 🫶🏻💗</p>
+    <p>Baby, je kade mere kolon koi galti ho gayi hove, je meri kise gall ne tera dil dukhaya hove, taan main dil ton sorry aa. 🥺 Main kade vi nahi chaunda ki meri wajah naal teriyan akhan vich udaasi aave. Main chaunda haan ki tu mere naal hamesha khush rave, hassdi rave, te tenu hamesha eh feel hove ki koi aa jo tenu dil ton pyaar karda aa. ❤️</p>
+    <p class="highlight">Tu mere layi perfect hon karke pyaari nahi, tu meri aa, is karke mere layi duniya di sab ton pyaari aa. 🧿💋</p>
+    <p>Teri smile, teriyan gallan, tera gussa, teriyan cute jehiyan harkatan—mainu tera sab kujh pyaara lagda aa. Jad tu khush hundi aa, mainu vi khushi hundi aa, te jad tu udaas hundi aa, mera vi dil karda ki bas tenu hug karke keh devaan, “Baby, main aa na, aapan gall karke sab theek kar laange.” 🫂❤️</p>
+    <p>Meri jaan, main nahi chaunda ki saade vich ego aave, misunderstandings aavan, ya chhotiyaan gallan saade pyaar ton vaddiyaan ho jaan. Main chaunda haan asi ik duje nu samjhiye, ik duje di gall suniye, galtiyan ton sikhiye te har din apne rishte nu hor sohṇa banaiye. Main vi apne aap nu better banauna chaunda haan, tere layi nahi sirf, sagon saade layi. 🥹💞</p>
+    <p>Je mainu hazaar vaar vi tenu dassna pave, main dassanga ki <strong>I LOVE YOU, MERI JAAN.</strong> ❤️ Tu mere layi bohat zyada matter kardi aa. Main teri smile di kadar karna, teriyan feelings nu samajhna te tenu respect dena chaunda haan. Main chaunda haan mera pyaar tenu sirf meri gallan vich nahi, mere actions vich vi nazar aave. 🫶🏻</p>
+    <p>Ik chhoti jehi request aa, meri putt… 🥺💗 Jadon vi kujh bura lagge, mere naal gall kari. Main chaunda haan asi ik duje nu samajhan da mauka deyiye. Tu mere layi bohat precious aa, Jaismeen. Teri jagah mere dil vich bohat khaas aa.</p>
+    <p>Thank you meri life vich aun layi, mainu pyaar den layi, te meri duniya da inna sohṇa hissa bannan layi. ❤️🧿</p>
+    <p class="highlight">I’m sorry, meri jaan. I love you more than these words can ever explain. 💋💗</p>
+    <p>Ik hug, ik kiss, te bohat saara pyaar sirf meri Jaismeen layi. 🫂💋❤️</p>
+    <p class="signature">Forever my favourite person, meri jaan. ♾️❤️</p>
+    <div class="actions">
+      <button class="pill" id="surpriseBtn">One more surprise 🎁</button>
+      <button class="pill secondary" id="moreHeartsBtn">Send you hearts 💕</button>
+      <button class="pill secondary" id="shareBtn">Share this card ↗</button>
+    </div>
+    <div class="surprise" id="surprise" aria-live="polite">
+      <div style="font-size:2.2rem">🫂💗💋</div>
+      <strong>Ik virtual hug, meri jaan!</strong>
+      <p style="margin:8px 0 0">Tu mere layi bohat precious aa. Hamesha apna khayal rakhi, meri Jaismeen. ❤️</p>
+    </div>
+  </article>
+  <p class="tiny">Made with lots of love, just for you. 💗</p>
+</main>
+<script>
+  const openBtn = document.getElementById('openBtn');
+  const scene = document.getElementById('scene');
+  const letter = document.getElementById('letter');
+  let opened = false;
+
+  function hearts(count = 18) {
+    const symbols = ['💗','💕','💖','💘','❤️','✨'];
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      h.style.left = (Math.random() * 96) + 'vw';
+      h.style.fontSize = (16 + Math.random() * 22) + 'px';
+      h.style.animationDuration = (4 + Math.random() * 4) + 's';
+      h.style.animationDelay = (Math.random() * .8) + 's';
+      document.body.appendChild(h);
+      h.addEventListener('animationend', () => h.remove(), { once:true });
+    }
+  }
+  openBtn.addEventListener('click', () => {
+    if (opened) return;
+    opened = true;
+    scene.classList.add('opened');
+    document.getElementById('tapHint').textContent = 'Opening your little love letter… 💗';
+    hearts(24);
+    window.setTimeout(() => {
+      letter.classList.add('show');
+      document.getElementById('tapHint').textContent = 'Made with love, just for you ❤️';
+      letter.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 700);
+  });
+  document.getElementById('surpriseBtn').addEventListener('click', () => {
+    document.getElementById('surprise').classList.toggle('show');
+    hearts(20);
+  });
+  document.getElementById('moreHeartsBtn').addEventListener('click', () => hearts(36));
+  document.getElementById('shareBtn').addEventListener('click', async () => {
+    const shareData = { title:'Meri Jaan 😘❤️', text:'A little love surprise, just for you 💌', url:location.href };
+    try {
+      if (navigator.share) await navigator.share(shareData);
+      else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(location.href);
+        alert('Card link copied! Share it with your jaan ❤️');
+      } else {
+        prompt('Copy your card link:', location.href);
+      }
+    } catch (e) { /* Share sheet dismissed by user. */ }
+  });
+</script>
+</body>
+</html>
