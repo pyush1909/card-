@@ -13,10 +13,16 @@
   body {
     margin:0; min-height:100vh; overflow-x:hidden; color:var(--ink);
     font-family: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, sans-serif;
-    background: radial-gradient(circle at top left,#ffe0eb 0,transparent 38%),
-                radial-gradient(circle at bottom right,#ffd2e2 0,transparent 40%),
+    background: radial-gradient(circle at 12% 8%,#ffe0eb 0,transparent 38%),
+                radial-gradient(circle at 88% 85%,#ffd2e2 0,transparent 40%),
                 linear-gradient(145deg,#fff8fb,#ffeaf2 55%,#fff4f8);
+    background-size:130% 130%; animation:backgroundDrift 16s ease-in-out infinite alternate;
   }
+  @keyframes backgroundDrift { from { background-position:0% 0%; } to { background-position:100% 100%; } }
+  .ambient { position:fixed; width:180px; height:180px; border-radius:50%; filter:blur(36px); opacity:.28; pointer-events:none; z-index:0; animation:ambientFloat 11s ease-in-out infinite alternate; }
+  .ambient.one { background:#ff9fbd; top:12%; left:-80px; }
+  .ambient.two { background:#ffc6dd; right:-90px; bottom:8%; animation-delay:-5s; }
+  @keyframes ambientFloat { to { transform:translate3d(24px,-28px,0) scale(1.15); } }
   button { font:inherit; -webkit-tap-highlight-color:transparent; }
   .wrap { width:min(720px,100%); margin:auto; padding:clamp(22px,6vw,52px) 18px 40px; position:relative; z-index:1; }
   .topline { text-align:center; font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; color:#b24c75; }
@@ -24,7 +30,9 @@
   .sub { text-align:center; margin:0 auto 28px; max-width:430px; line-height:1.65; color:#95506c; }
   .scene { display:grid; place-items:center; min-height:290px; margin:8px 0 20px; perspective:1000px; }
   .envelope-button { border:0; background:transparent; cursor:pointer; padding:18px; width:min(330px,90vw); color:inherit; }
-  .envelope { position:relative; height:190px; border-radius:12px; background:#ff9fbd; box-shadow:0 18px 35px #b53d6730; transition:transform .4s ease; }
+  .envelope { position:relative; height:190px; border-radius:12px; background:#ff9fbd; box-shadow:0 18px 35px #b53d6730; transition:transform .65s cubic-bezier(.2,.8,.2,1),box-shadow .65s ease; animation:envelopeFloat 3.2s ease-in-out infinite; }
+  .envelope-button:hover .envelope { box-shadow:0 25px 45px #b53d6740; }
+  @keyframes envelopeFloat { 0%,100% { transform:translateY(0) rotate(0); } 50% { transform:translateY(-7px) rotate(.6deg); } }
   .envelope-button:active .envelope { transform:scale(.98); }
   .envelope::before { content:""; position:absolute; inset:0; background:#ffb6cc; clip-path:polygon(0 0,50% 58%,100% 0); border-radius:12px 12px 0 0; transform-origin:top; transition:transform .8s ease; z-index:3; }
   .envelope::after { content:""; position:absolute; inset:0; background:#ff83a9; clip-path:polygon(0 100%,0 0,50% 55%,100% 0,100% 100%); border-radius:0 0 12px 12px; z-index:2; }
@@ -35,7 +43,21 @@
   .opened .seal { opacity:0; transform:translate(-50%,-50%) scale(.4); }
   .tap-hint { margin-top:5px; text-align:center; color:#b24c75; font-weight:700; animation:pulse 1.8s infinite; }
   @keyframes pulse { 50% { opacity:.55; transform:translateY(-2px); } }
-  .letter { display:none; opacity:0; transform:translateY(20px); background:#fffdfd; border:1px solid #ffd2e1; border-radius:24px; padding:clamp(22px,5vw,38px); box-shadow:0 18px 50px #a52b5817; line-height:1.85; font-size:1rem; }
+  .letter { display:none; opacity:0; transform:translateY(24px) scale(.985); background:#fffdfd; border:1px solid #ffd2e1; border-radius:24px; padding:clamp(22px,5vw,38px); box-shadow:0 18px 50px #a52b5817; line-height:1.85; font-size:1rem; }
+  .letter p { opacity:0; transform:translateY(12px); }
+  .letter.show p { animation:paragraphIn .7s cubic-bezier(.2,.75,.25,1) forwards; }
+  .letter.show p:nth-of-type(1) { animation-delay:.18s; }
+  .letter.show p:nth-of-type(2) { animation-delay:.28s; }
+  .letter.show p:nth-of-type(3) { animation-delay:.38s; }
+  .letter.show p:nth-of-type(4) { animation-delay:.48s; }
+  .letter.show p:nth-of-type(5) { animation-delay:.58s; }
+  .letter.show p:nth-of-type(6) { animation-delay:.68s; }
+  .letter.show p:nth-of-type(7) { animation-delay:.78s; }
+  .letter.show p:nth-of-type(8) { animation-delay:.88s; }
+  .letter.show p:nth-of-type(9) { animation-delay:.98s; }
+  .letter.show p:nth-of-type(10) { animation-delay:1.08s; }
+  .letter.show p:nth-of-type(11) { animation-delay:1.18s; }
+  @keyframes paragraphIn { to { opacity:1; transform:translateY(0); } }
   .letter.show { display:block; animation:letterIn .85s .15s forwards; }
   @keyframes letterIn { to { opacity:1; transform:translateY(0); } }
   .letter h2 { text-align:center; font-size:clamp(1.4rem,5vw,2rem); line-height:1.35; color:var(--deep); margin:0 0 22px; }
@@ -43,18 +65,29 @@
   .highlight { text-align:center; color:#c92e65; font-weight:800; font-size:1.12rem; padding:12px 8px; }
   .signature { text-align:center; color:#c92e65; font-weight:800; font-size:1.1rem; margin-top:25px; }
   .actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:22px 0 8px; }
-  .pill { border:0; border-radius:999px; padding:13px 20px; background:var(--deep); color:white; font-weight:750; cursor:pointer; box-shadow:0 7px 16px #c92e6530; }
+  .pill { position:relative; overflow:hidden; border:0; border-radius:999px; padding:13px 20px; background:var(--deep); color:white; font-weight:750; cursor:pointer; box-shadow:0 7px 16px #c92e6530; transition:transform .25s ease,box-shadow .25s ease; }
+  .pill::after { content:""; position:absolute; top:-60%; left:-70%; width:45%; height:220%; transform:rotate(25deg); background:#ffffff40; transition:left .65s ease; }
+  .pill:hover::after,.pill:focus-visible::after { left:130%; }
+  .pill:hover { transform:translateY(-2px); box-shadow:0 11px 22px #c92e6538; }
+  .pill:active { transform:scale(.97); }
   .pill.secondary { background:#fff; color:var(--deep); border:1px solid #ffc5d9; box-shadow:none; }
   .pill:focus-visible,.envelope-button:focus-visible { outline:3px solid #7d2449; outline-offset:4px; }
   .tiny { text-align:center; font-size:.82rem; color:#a96a83; margin-top:28px; }
   .heart { position:fixed; bottom:-35px; pointer-events:none; z-index:0; animation:floatUp linear forwards; filter:drop-shadow(0 3px 5px #d447741a); }
   @keyframes floatUp { to { transform:translateY(-115vh) rotate(28deg); opacity:0; } }
-  .surprise { display:none; text-align:center; background:#fff4f8; border-radius:18px; border:1px dashed #f3a1bc; padding:18px; margin-top:18px; animation:letterIn .5s forwards; }
-  .surprise.show { display:block; }
+  .surprise { display:none; text-align:center; background:linear-gradient(135deg,#fff4f8,#ffe4ee); border-radius:18px; border:1px dashed #f3a1bc; padding:18px; margin-top:18px; }
+  .surprise.show { display:block; animation:surprisePop .65s cubic-bezier(.18,.9,.25,1.25) both; }
+  .surprise.show .surprise-icon { display:inline-block; animation:heartBeat 1.2s ease-in-out infinite; }
+  @keyframes surprisePop { from { opacity:0; transform:translateY(12px) scale(.94); } to { opacity:1; transform:translateY(0) scale(1); } }
+  @keyframes heartBeat { 0%,100% { transform:scale(1); } 15% { transform:scale(1.16); } 30% { transform:scale(1); } 45% { transform:scale(1.1); } }
+  .sparkle { position:fixed; z-index:5; pointer-events:none; animation:sparkleBurst 1.25s ease-out forwards; }
+  @keyframes sparkleBurst { 0% { opacity:0; transform:translate(0,0) scale(.3) rotate(0); } 15% { opacity:1; } 100% { opacity:0; transform:translate(var(--dx),var(--dy)) scale(1.2) rotate(100deg); } }
+  .footer-heart { display:inline-block; animation:heartBeat 1.6s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
 </style>
 </head>
 <body>
+<div class="ambient one" aria-hidden="true"></div><div class="ambient two" aria-hidden="true"></div>
 <main class="wrap">
   <div class="topline">A little something from my heart</div>
   <h1>Meri Jaan 😘❤️</h1>
@@ -90,12 +123,12 @@
       <button class="pill secondary" id="shareBtn">Share this card ↗</button>
     </div>
     <div class="surprise" id="surprise" aria-live="polite">
-      <div style="font-size:2.2rem">🫂💗💋</div>
+      <div class="surprise-icon" style="font-size:2.2rem">🫂💗💋</div>
       <strong>Ik virtual hug, meri jaan!</strong>
       <p style="margin:8px 0 0">Tu mere layi bohat precious aa. Hamesha apna khayal rakhi, meri Jaismeen. ❤️</p>
     </div>
   </article>
-  <p class="tiny">Made with lots of love, just for you. 💗</p>
+  <p class="tiny">Made with lots of love, just for you. <span class="footer-heart">💗</span></p>
 </main>
 <script>
   const openBtn = document.getElementById('openBtn');
@@ -104,7 +137,7 @@
   let opened = false;
 
   function hearts(count = 18) {
-    const symbols = ['💗','💕','💖','💘','❤️','✨'];
+    const symbols = ['💗','💕','💖','💘','❤️','✨','🩷'];
     for (let i = 0; i < count; i++) {
       const h = document.createElement('span');
       h.className = 'heart';
@@ -117,9 +150,26 @@
       h.addEventListener('animationend', () => h.remove(), { once:true });
     }
   }
+  function sparkleBurst(count = 18) {
+    const symbols = ['✨','💖','💕','🌸','💗'];
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('span');
+      s.className = 'sparkle';
+      s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      s.style.left = (38 + Math.random() * 24) + 'vw';
+      s.style.top = (35 + Math.random() * 25) + 'vh';
+      s.style.setProperty('--dx', ((Math.random() - .5) * 260) + 'px');
+      s.style.setProperty('--dy', ((Math.random() - .5) * 260) + 'px');
+      s.style.fontSize = (14 + Math.random() * 18) + 'px';
+      s.style.animationDelay = (Math.random() * .25) + 's';
+      document.body.appendChild(s);
+      s.addEventListener('animationend', () => s.remove(), { once:true });
+    }
+  }
   openBtn.addEventListener('click', () => {
     if (opened) return;
     opened = true;
+    sparkleBurst(22);
     scene.classList.add('opened');
     document.getElementById('tapHint').textContent = 'Opening your little love letter… 💗';
     hearts(24);
@@ -130,10 +180,13 @@
     }, 700);
   });
   document.getElementById('surpriseBtn').addEventListener('click', () => {
-    document.getElementById('surprise').classList.toggle('show');
+    const surprise = document.getElementById('surprise');
+    surprise.classList.toggle('show');
     hearts(20);
+    sparkleBurst(14);
   });
-  document.getElementById('moreHeartsBtn').addEventListener('click', () => hearts(36));
+  document.getElementById('moreHeartsBtn').addEventListener('click', () => { hearts(36); sparkleBurst(18); });
+  // Keep the card smooth and lightweight on phones: old floating hearts clean themselves up.
   document.getElementById('shareBtn').addEventListener('click', async () => {
     const shareData = { title:'Meri Jaan 😘❤️', text:'A little love surprise, just for you 💌', url:location.href };
     try {
